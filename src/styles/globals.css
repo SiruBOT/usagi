@@ -1,25 +1,58 @@
 @tailwind base;
-@tailwind components;
-@tailwind utilities;
+
+h1 {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
 
 :root {
   --background: #1e1f21;
-  --navbar: #28292d;
+  --accent-1: #28292d;
   --button: #fff;
+  --button-hover: #363636;
+  --font-color: #fff;
+  --blurple: #5865F2;
+  --blurple-hover: #4852c2;
+}
+
+@media (prefer-color-scheme: dark) {
+  :root {
+    --background: #1e1f21;
+    --accent-1: #28292d;
+    --button: #fff;
+    --button-hover: #363636;
+    --font-color: #fff;
+    --blurple: #5865F2;
+    --blurple-hover: #4852c2;
+  }
 }
 
 body {
   background: var(--background);
-  padding: 1rem;
   transition: background 1s;
-  color: #FFFFFF;
+  color: var(--font-color);
   font-family: 'Noto Sans KR', sans-serif;
 }
 
+.center {
+  margin-left: 15%;
+  margin-right: 15%;
+}
+
+@media (max-width: 768px) {
+  .center {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
 .container {
-  margin-top: 1rem;
-  display: flex;
-  max-width: 100%;
-  justify-content: center;
-  align-items: center;
+  min-height: calc(100vh - (48px + 1rem));
+  padding-top: 2rem;
 }
