@@ -15,10 +15,8 @@ interface DiscordUser {
 }
 
 declare module "next-auth" {
-  interface User {}
-
   interface Session extends DefaultSession {
-    accessToken: string;
+    accessToken?: string;
     discordInfo: DiscordUser;
   }
 }
@@ -33,8 +31,8 @@ export const authOptions: AuthOptions = {
   ],
   callbacks: {
     async session({ session, token }) {
-      session.accessToken = token.accessToken as string;
       if (token.accessToken) {
+        session.accessToken = token.accessToken as string;
         const resp = await fetch("https://discord.com/api/users/@me", {
           headers: {
             authorization: `Bearer ${token.accessToken}`,
