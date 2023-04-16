@@ -1,33 +1,31 @@
-import Header from "./components/Header";
-import ShardInfo from "./components/ShardInfo";
-import { ApiResponse } from "./types/StatsApiResponse";
-import styles from "./stats.module.css";
-import Divider from "./components/Divider";
+import Header from "@components/Header";
+import ShardInfo from "@components/ShardInfo";
+import { ApiResponse } from "@/typings";
+import styles from "@pages/stats.module.css";
+import Divider from "@components/Divider";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBuilding, faHashtag, faUser } from "@fortawesome/free-solid-svg-icons";
+
+const totalKeys = ["cachedGuilds", "cachedChannels", "cachedUsers"] as const;
 
 export default function Stats({ stats }: { stats: ApiResponse }) {
-  const totalGuildCount = stats.clustersInfo.reduce((acc, cur) => {
-    acc += cur.discordStats.cachedGuilds;
-    return acc;
-  }, 0);
-  const totalChannelCount = stats.clustersInfo.reduce((acc, cur) => {
-    acc += cur.discordStats.cachedChannels;
-    return acc;
-  }, 0);
-  const totalUserCount = stats.clustersInfo.reduce((acc, cur) => {
-    acc += cur.discordStats.cachedUsers;
-    return acc;
-  }, 0);
+  const [totalGuildCount, totalChannelCount, totalUserCount] = totalKeys.map((key): number => {
+    return stats.clustersInfo.reduce((acc, cur) => {
+      acc += cur.discordStats[key];
+      return acc;
+    }, 0);
+  })
   return (
     <>
       <Header title="봇 정보" />
       <h1 className={styles.titleTypo}>클러스터 정보</h1>
-
-      <ul className={styles.totalContainer}>
-        <li>{totalGuildCount}</li>
+      {/* TODO: Add total players */}
+      <ul className={[styles.totalContainer, styles.totalTypo].join(" ")}>
+        <li><FontAwesomeIcon icon={faBuilding} /> {totalGuildCount} 서버</li>
         <Divider orientation="vertical" />
-        <li>{totalChannelCount}</li>
+        <li><FontAwesomeIcon icon={faHashtag} /> {totalChannelCount} 채널</li>
         <Divider orientation="vertical" />
-        <li>{totalUserCount}</li>
+        <li><FontAwesomeIcon icon={faUser} /> {totalUserCount} 유저</li>
       </ul>
       <div className={styles.shardContainer}>
         {stats.clustersInfo.map((info, index) => {

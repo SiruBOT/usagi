@@ -14,19 +14,39 @@
 
 .totalContainer {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    justify-content: space-between;
     padding: 1rem;
     gap: 1rem;
     margin: 1rem 0 1rem 0;
     width: 100%;
-    height: 10vh;
     border-radius: 1rem;
     background-color: var(--accent-1);
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
 }
 
+.totalContainer > li {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.totalContainer > li > svg {
+    margin-right: 0.5rem;
+}
+
 .titleTypo {
     font-size: xx-large;
     font-weight: bold;
+}
+
+.totalTypo {
+    font-size: 1.4rem
+}
+
+@media (max-width: 600px) {
+    .totalContainer {
+        flex-direction: column;
+        gap: 0.25rem;
+    }
 }
