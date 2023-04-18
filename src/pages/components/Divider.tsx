@@ -1,4 +1,4 @@
-import styles from "./Divider.module.css";
+import styles from "@components/Divider.module.css";
 
 export default function Divider ({ orientation }: { orientation: "horizontal" | "vertical" }) {
     return (
