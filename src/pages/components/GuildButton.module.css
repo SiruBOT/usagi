@@ -1,0 +1,25 @@
+.guildButton {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border: none;
+    padding: 0.5rem;
+    font-size: 1rem;
+    border-radius: 10px;
+    transition: all 0.5s ease;
+}
+
+.guildButton:hover {
+    background-color: var(--button-hover);
+}
+
+.guildButtonIcon {
+    border-radius: 50%;
+    height: 100%;
+    width: 48px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: var(--accent-1);
+    overflow: hidden;
+}
