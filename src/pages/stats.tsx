@@ -37,13 +37,24 @@ export default function Stats({ stats }: { stats: ApiResponse }) {
 }
 
 export async function getStaticProps() {
-  const res = await fetch("http://localhost:3300/stats");
-  const data = await res.json();
-
-  return {
-    props: {
-      stats: data,
-      revalidate: 10,
-    },
-  };
+  try {
+    const res = await fetch("http://localhost:3300/stats");
+    const data = await res.json();
+  
+    return {
+      props: {
+        stats: data,
+        revalidate: 10,
+      },
+    };
+  } catch (e) {
+    return {
+      props: {
+        stats: {
+          clusterId: 0,
+          clustersInfo: []
+        },
+      },
+    };
+  }
 }
