@@ -8,6 +8,7 @@ const nextConfig = {
       pathname: '/**/**',
     }]
   },
+  output: "standalone",
   reactStrictMode: true,
 }
 
