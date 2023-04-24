@@ -8,13 +8,11 @@ WORKDIR /app
 COPY ./ /app
 # Install dependencies
 RUN  yarn --frozen-lockfile && yarn add sharp
-# Build project
+# Build production files
 RUN yarn run build
-# Copy standalone .js file and static files
-COPY /.next/standalone ./
 # Expose 3000 port
 EXPOSE 3000
 # Set env PORT to 3000, NODE_ENV to production
 ENV PORT 3000 NODE_ENV production
-# Run server.js
-CMD ["node", "server.js"]
+# Run next.js application
+CMD ["yarn", "run", "start"]
