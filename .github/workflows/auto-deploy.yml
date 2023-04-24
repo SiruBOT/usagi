@@ -9,7 +9,7 @@ on:
 
 # environment variables
 env:
-  DOCKER_IMAGE: ghcr.io/${{ github.actor }}/usagi
+  DOCKER_IMAGE: ghcr.io/${{ secrets.GHCR_USERNAME }}/usagi
   VERSION: ${{ github.sha }}
   NAME: usagi_auto_deploy
 
