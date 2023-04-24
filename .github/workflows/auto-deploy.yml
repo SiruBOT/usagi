@@ -43,6 +43,4 @@ jobs:
           file: ./Dockerfile
           builder: ${{ steps.buildx.outputs.name }}
           push: true
-          tags: |
-            ghcr.io/${{ secrets.GHCR_USERNAME }}/usagi:latest
-            ghcr.io/${{ secrets.GHCR_USERNAME }}/usagi:${{ github.sha }}
+          tags: ghcr.io/${{ secrets.GHCR_USERNAME }}/usagi:latest
