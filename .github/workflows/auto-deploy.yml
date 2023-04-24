@@ -1,0 +1,50 @@
+# Name: auto deploy
+name: Auto deploy
+
+# trigger
+on:
+  push:
+    branches:
+      - "main"
+
+# environment variables
+env:
+  DOCKER_IMAGE: ghcr.io/${{ github.actor }}/usagi
+  VERSION: ${{ github.sha }}
+  NAME: usagi_auto_deploy
+
+# build, deploy job definition
+jobs:
+  build:
+    runs-on: ubuntu-latest # runner os
+    name: Build docker image and push to ghcr.io # job name
+    steps:
+      # github repository checkout
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      # setup docker buildx
+      - name: Setup docker buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+      # cache docker layers
+      - name: Cache docker layers
+        uses: actions/cache@v2
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ env.VERSION }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
+      # ghcr.io login and build
+      - name: Login with ghcr.io
+        uses: docker/login-action@v1
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      # build docker image
+      - name: Build docker image
+        uses: docker/build-push-action@v2
+        with:
+          builder: ${{ steps.buildx.outputs.name }}
+          push: true
+          tags: ${{ env.DOCKER_IMAGE }}:latest
