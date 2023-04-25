@@ -8,7 +8,7 @@ import "@/styles/globals.css";
 const client = new QueryClient({
   defaultOptions: {
     queries: {
-      refetchOnWindowFocus: false
+      refetchOnWindowFocus: false,
     },
   },
 });
@@ -16,11 +16,13 @@ const client = new QueryClient({
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <QueryClientProvider client={client}>
-      {process.env.NODE_ENV !== "production" ? <ReactQueryDevtools initialIsOpen={true}/>  : null}
+      {process.env.NODE_ENV !== "production" ? (
+        <ReactQueryDevtools initialIsOpen={true} />
+      ) : null}
       <SessionProvider session={pageProps.session}>
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+          <Layout>
+            <Component {...pageProps} />
+          </Layout>
       </SessionProvider>
     </QueryClientProvider>
   );
