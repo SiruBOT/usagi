@@ -68,7 +68,11 @@ export interface ApiResponse {
 }
 
 // NextApi route response
-
+export interface StatsResponse extends Response {
+  ok: true;
+  stats: ApiResponse;
+  timeStamp: number;
+}
 
 export interface UnAuthorizedResponse extends ErrorResponse {
   ok: false;
